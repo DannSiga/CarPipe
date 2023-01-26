@@ -8,7 +8,6 @@ CREATE TABLE comprobantes (
     Responsable   varchar(225)null,
 
 
-
     fyh_crea    datetime null,
     fyh_eli    datetime null,
     fyh_act    datetime null,

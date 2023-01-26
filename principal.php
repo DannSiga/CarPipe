@@ -105,7 +105,7 @@ include('layout/admin/datos_usuario_sesion.php');
                                       <input type="text" class="form-control">
                                     </div>
                                   </div>
-                                      
+                                    
                                   <div class="form-group row">
                                     <label for="staticEmail" class="col-sm-2 col-form-label">Nombre:</label>
                                     <div class="col-sm-10">
@@ -119,7 +119,7 @@ include('layout/admin/datos_usuario_sesion.php');
                                       <input type="text" class="form-control">
                                     </div>
                                   </div>
--->
+-->  
                                   <div class="form-group row">
                                     <label for="staticEmail" class="col-sm-4 col-form-label">Fecha de Ingreso:</label>
                                     <div class="col-sm-8">
@@ -130,7 +130,7 @@ include('layout/admin/datos_usuario_sesion.php');
                                       $mes = date('m');
                                       $año = date('Y');
                                       ?>
-                                      <input type="date" class="form-control" value="<?php echo $año."-".$mes."-".$dia;?>">
+                                      <input type="date" class="form-control" id="fecha_ingreso<?php echo $id_map;?>" value="<?php echo $año."-".$mes."-".$dia;?>">
                                     </div>
                                   </div>
 
@@ -143,21 +143,21 @@ include('layout/admin/datos_usuario_sesion.php');
                                       $hora = date('H');
                                       $minutos = date('i');
                                       ?>
-                                      <input type="time" class="form-control" value="<?php echo $hora.":".$minutos;?>">
+                                      <input type="time" class="form-control" id="hora_ingreso<?php echo $id_map;?>" value="<?php echo $hora.":".$minutos;?>">
                                     </div>
                                   </div>
 
                                   <div class="form-group row">
                                     <label for="staticEmail" class="col-sm-4 col-form-label">Cubículo</label>
                                     <div class="col-sm-8">
-                                    <input type="text" class="form-control" value="<?php echo $no_espas; ?>">
+                                    <input type="text" class="form-control" value="<?php echo $no_espas;?>" id="cubiculo<?php echo $id_map;?>">
                                     </div>
                                   </div>
 
                                   <div class="form-group row">
                                     <label for="staticEmail" class="col-sm-4 col-form-label">Observaciones:</label>
                                     <div class="col-sm-8">
-                                      <textarea name="" id="obs" cols="" class="form-control" rows="5"></textarea>
+                                      <textarea name="" id="obs" cols="" class="form-control" id="obser_placa<?php echo $id_map;?>" rows="5"></textarea>
                                     </div>
                                   </div>
 
@@ -168,7 +168,17 @@ include('layout/admin/datos_usuario_sesion.php');
                                   <button type="button" class="btn btn-primary" id="btn_registrar_compro<?php echo $id_map;?>">Imprimir comprobante</button>
                                   <script>
                                     $('#btn_registrar_compro<?php echo $id_map;?>').click(function(){
-                                    alert("cmprobante");
+                                    var placa = $('#placa_buscar<?php echo $id_map;?>').val();
+                                    var nombre_cli = $('#nombre_cliente<?php echo $id_map;?>').val();
+                                    var rfc = $('#rfc_cli<?php echo $id_map;?>').val();
+
+                                    var fecha_ingreso = $('#fecha_ingreso<?php echo $id_map;?>').val();
+                                    var hora_ingreso = $('#hora_ingreso<?php echo $id_map;?>').val();
+
+                                    var cubiculo = $('#cubiculo<?php echo $id_map;?>').val();
+                                    var observacion = $('#obser_placa<?php echo $id_map;?>').val();
+                                    
+                                    alert(placa+'-'+cubiculo);
                                    
                                     });
                                   </script>
@@ -208,7 +218,5 @@ include('layout/admin/datos_usuario_sesion.php');
     <?php include('layout/admin/footer_link.php');?>
   </body>
 </html>
- <?php
-
 
 
