@@ -148,16 +148,16 @@ include('layout/admin/datos_usuario_sesion.php');
                                   </div>
 
                                   <div class="form-group row">
-                                    <label for="staticEmail" class="col-sm-4 col-form-label">Observaciones:</label>
+                                    <label for="staticEmail" class="col-sm-4 col-form-label">Cubículo</label>
                                     <div class="col-sm-8">
-                                      <textarea name="" id="obs" cols="" class="form-control" rows="5"></textarea>
+                                    <input type="text" class="form-control" value="<?php echo $no_espas; ?>">
                                     </div>
                                   </div>
 
                                   <div class="form-group row">
-                                    <label for="staticEmail" class="col-sm-4 col-form-label">Cuvículo</label>
+                                    <label for="staticEmail" class="col-sm-4 col-form-label">Observaciones:</label>
                                     <div class="col-sm-8">
-                                    <input type="text" class="form-control" value="<?php echo $no_espas; ?>">
+                                      <textarea name="" id="obs" cols="" class="form-control" rows="5"></textarea>
                                     </div>
                                   </div>
 
@@ -169,6 +169,7 @@ include('layout/admin/datos_usuario_sesion.php');
                                   <script>
                                     $('#btn_registrar_compro<?php echo $id_map;?>').click(function(){
                                     alert("cmprobante");
+                                   
                                     });
                                   </script>
                                 </div>
