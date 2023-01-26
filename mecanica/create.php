@@ -46,7 +46,7 @@ include('../layout/admin/datos_usuario_sesion.php');
                                     </div>
                                 </div>
 <br>
-                                <div class="row">
+                              <!--  <div class="row">
                                     <div class="col-md-12">
                                         <div class="form group">
                                             <label for="">Observación</label>
@@ -54,7 +54,8 @@ include('../layout/admin/datos_usuario_sesion.php');
                                         </div>
                                     </div>
 
-                                </div>
+                                </div>-->
+
                                 <hr>
                                 <div class="row">
                                     <div class="col-md-6">
