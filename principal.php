@@ -129,6 +129,7 @@ include('layout/admin/datos_usuario_sesion.php');
                                 </div>
 
                                 <div class="modal-footer">
+                                  
                                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                                   <button type="button" class="btn btn-primary" id="btn_registrar_compro<?php echo $id_map;?>">Comprobante</button>
                                   
@@ -175,7 +176,7 @@ include('layout/admin/datos_usuario_sesion.php');
                                     });
                                   </script>
                                 </div>
-                                <div id="respuesta_compro"></div>
+                                <div id="respuesta_compro<?php echo $id_map;?>"></div>
                               </div>
                             </div>
                           </div>
@@ -262,18 +263,13 @@ include('layout/admin/datos_usuario_sesion.php');
                               </div>
                             
                             <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                              <button type="button" class="btn btn-primary">Imprimir</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
+                              <a href="comprobantes/controller_cancelar_compro.php?id=<?php echo $id_ticket;?>&&cubiculo=<?php echo $cubiculo;?>"class="btn btn-danger">Cancelar</a>
+                              <a href="comprobantes/reimprimir.php?id=<?php echo $id_ticket;?>" class="btn btn-primary">Imprimir</a>
                             </div>
                           </div>
                         </div>
                       </div>
-                      
-                      <script>
-                          $('#btn_ocupado<?php echo $id_map;?>').click(function(){
-                            //alert("mostrando datos");
-                          });
-                        </script>
                         <p><?php echo $estado_esp; ?></p>
                       </center>
                     </div>

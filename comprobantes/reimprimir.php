@@ -3,6 +3,7 @@
 require_once('../app/templeates/TCPDF-main/tcpdf.php');
 include('../app/config.php');
 
+
 //cargar el encabezado
 $query_informacions = $pdo->prepare("SELECT * FROM tb_informacion WHERE estado = '1' ");
 $query_informacions->execute();
@@ -16,8 +17,10 @@ foreach($informacions as $informacion){
 }
 
 
-//cargar la información del ticket
-$query_tickets = $pdo->prepare("SELECT * FROM comprobante WHERE estado = '1' ");
+
+//cargar la información del ticket desde el id
+$id_ticket_get = $_GET['id'];
+$query_tickets = $pdo->prepare("SELECT * FROM comprobante WHERE id_compr = '$id_ticket_get' AND estado = '1' ");
 $query_tickets->execute();
 $tickets = $query_tickets->fetchAll(PDO::FETCH_ASSOC);
 foreach($tickets as $ticket){
@@ -28,8 +31,8 @@ foreach($tickets as $ticket){
     $fecha_ingreso = $ticket['fecha_ingreso'];
     $hora_ingreso = $ticket['hora_ingreso'];
     $usuario_sesion = $ticket['responsable'];
-    //$observacion = $ticket['observ'];
 }
+
 
 // create new PDF document
 $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, array(80,100), true, 'UTF-8', false);
@@ -37,7 +40,7 @@ $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, array(80,100), true, 'UTF-8', f
 // set document information
 $pdf->setCreator(PDF_CREATOR);
 $pdf->setAuthor('Nicola Asuni');
-$pdf->setTitle('TCPDF Example 002');
+$pdf->setTitle('Comprobante');
 $pdf->setSubject('TCPDF Tutorial');
 $pdf->setKeywords('TCPDF, PDF, example, test, guide');
 
@@ -49,10 +52,10 @@ $pdf->setPrintFooter(false);
 $pdf->setDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
 // set margins
-$pdf->setMargins(6, 1, 6);
+$pdf->setMargins(5, 5, 5);
 
 // set auto page breaks
-$pdf->setAutoPageBreak(true, 3);
+$pdf->setAutoPageBreak(true, 5);
 
 
 // set image scale factor
@@ -109,9 +112,15 @@ Teléfono: '.$telefono.'<br>
 
 ';
 
-
 // output the HTML content
 $pdf->writeHTML($html, true, false, true, false, '');
+
+
+
+
+
+
+
 
 //Close and output PDF document
 $pdf->Output('example_002.pdf', 'I');
