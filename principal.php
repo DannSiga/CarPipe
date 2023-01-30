@@ -194,6 +194,11 @@ include('layout/admin/datos_usuario_sesion.php');
                                         $.get(url_1, {placa:placa,nombre_cli:nombre_cli,telefono:telefono,fecha_ingreso:fecha_ingreso,hora_ingreso:hora_ingreso,cubiculo:cubiculo,usuario_sesion:usuario_sesion}, function(datos){
                                           $('#respues_compro').html(datos);
                                         });
+
+                                        var url_2 = 'clientes/controller_registrar_clientes.php'; 
+                                        $.get(url_2, {placa:placa, nombre_cli:nombre_cli,telefono:telefono}, function(datos){
+                                          $('#respues_compro').html(datos);
+                                        });
                                       }
                                     });
                                   </script>
