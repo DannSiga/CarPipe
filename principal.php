@@ -59,8 +59,8 @@ include('layout/admin/datos_usuario_sesion.php');
                                 </div>
                                 <div class="modal-body">
                                   <div class="form-group row">
-                                    <label for="staticEmail" class="col-sm-2 col-form-label">Placa:</label>
-                                    <div class="col-sm-7">
+                                    <label for="staticEmail" class="col-sm-4 col-form-label">Placa:</label>
+                                    <div class="col-sm-3">
                                       <input type="text" style="text-transform: uppercase" class="form-control" id="placa_buscar<?php echo $id_map;?>">
                                     </div>
 
@@ -75,12 +75,13 @@ include('layout/admin/datos_usuario_sesion.php');
                                       <script>
                                         $('#btn_buscar_cliente<?php echo $id_map;?>').click(function(){
                                           var placa = $('#placa_buscar<?php echo $id_map;?>').val();
+                                          var id_map = "<?php echo $id_map;?>";
                                           if(placa == ""){
                                             alert('--> Debe anotar la placa');
                                             $('#placa_buscar<?php echo $id_map;?>').focus();
                                           }else{
                                             var url = 'clientes/controller_buscar_cliente.php';
-                                            $.get(url,{placa:placa},function(datos){
+                                            $.get(url,{placa:placa,id_map:id_map},function(datos){
                                               $('#respuesta_buscar_cliente<?php echo $id_map;?>').html(datos);
                                             }); 
                                           }
@@ -160,29 +161,45 @@ include('layout/admin/datos_usuario_sesion.php');
                                       <textarea name="" id="obs" cols="" class="form-control" id="obser_placa<?php echo $id_map;?>" rows="5"></textarea>
                                     </div>
                                   </div>
-
                                 </div>
 
                                 <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                  <button type="button" class="btn btn-primary" id="btn_registrar_compro<?php echo $id_map;?>">Imprimir comprobante</button>
+                                  <button type="button" class="btn btn-primary" id="btn_registrar_compro<?php echo $id_map;?>">Comprobante</button>
+                                  
                                   <script>
                                     $('#btn_registrar_compro<?php echo $id_map;?>').click(function(){
-                                    var placa = $('#placa_buscar<?php echo $id_map;?>').val();
-                                    var nombre_cli = $('#nombre_cliente<?php echo $id_map;?>').val();
-                                    var rfc = $('#rfc_cli<?php echo $id_map;?>').val();
+                                      var placa = $('#placa_buscar<?php echo $id_map;?>').val();
+                                      var nombre_cli = $('#nombre_cliente<?php echo $id_map;?>').val();
+                                      var telefono = $('#telefono<?php echo $id_map;?>').val();
 
-                                    var fecha_ingreso = $('#fecha_ingreso<?php echo $id_map;?>').val();
-                                    var hora_ingreso = $('#hora_ingreso<?php echo $id_map;?>').val();
+                                      var fecha_ingreso = $('#fecha_ingreso<?php echo $id_map;?>').val();
+                                      var hora_ingreso = $('#hora_ingreso<?php echo $id_map;?>').val();
 
-                                    var cubiculo = $('#cubiculo<?php echo $id_map;?>').val();
-                                    var observacion = $('#obser_placa<?php echo $id_map;?>').val();
-                                    
-                                    alert(placa+'-'+cubiculo);
-                                   
+                                      var cubiculo = $('#cubiculo<?php echo $id_map;?>').val();
+                                      var observacion = $('#obser_placa<?php echo $id_map;?>').val();
+                                      var usuario_sesion = "<?php echo $usuario_sesion;?>";
+
+
+                                      if(placa == ""){
+                                        alert("Debe colocar la PLACA");
+                                        $('#placa_buscar<?php echo $id_map;?>').focus();
+                                      }else if(nombre_cli == ""){
+                                        alert("Debe colocar el Nombre");
+                                        $('#nombre_cliente<?php echo $id_map;?>').focus();
+                                      }else if(telefono==""){
+                                        alert("-->Debe ingresar un teléfono");
+                                        $('#telefono<?php echo $id_map;?>');
+                                      }else{ 
+                                        var url = '\comprobantes\controller_regis_compro.php'; 
+                                        $.get(url, {placa:placa,nombre_cli:nombre_cli,telefono:telefono,fecha_ingreso:fecha_ingreso,hora_ingreso:hora_ingreso,cubiculo:cubiculo,observacion:observacion,usuario_sesion:usuario_sesion}, function(datos){
+                                          $('#respues_compro').html(datos);
+                                        });
+                                      }
                                     });
                                   </script>
                                 </div>
+                                <div id="respuesta_compro"></div>
                               </div>
                             </div>
                           </div>

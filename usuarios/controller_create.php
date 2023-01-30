@@ -23,7 +23,6 @@ $sentencia->bindParam('password_user',$password_user);
 //$sentencia->bindParam('estado',$estadoRegistro);
 $sentencia->bindParam('fecha_creacion',$fechaHora);
 
-
 if($sentencia->execute()){
     echo "Registro Exitoso";   
     ?><script> location.href = "../roles/asignar.php ";</script> <?php
