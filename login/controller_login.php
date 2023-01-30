@@ -5,6 +5,11 @@
  $usuario_user = $_POST['usuario'];
  $password_user = $_POST['password_user'];
 
+ $form_login = "";
+ if($_POST['form_login']){
+   $form_login = 'true';
+ }
+
  //echo $usuario." - ".$password_user;
  $email_table ='';
  $password_table='';
@@ -17,12 +22,22 @@
     $password_table = $usuario['password_user'];
  }
  if(($usuario_user ==$email_table)&&($password_user==$password_table)){
+   if($form_login==""){?>
+      <div class="alert alert-success"role="alert">
+      Usuario Correcto
+      </div>
+      <script>location.href = "principal.php";</script>  
+      <?php
+   }else{
     ?>
     <div class="alert alert-success"role="alert">
-    Usuario Correcto
-    </div>
-    <script>location.href = "principal.php";</script>
-    <?php
+      Usuario Correcto
+      </div>
+      <script>location.href = "../principal.php";</script>  
+      <?php
+   }
+   ?>
+   <?php
     $_SESSION['usuario_sesion']=$email_table;
  }else{
     ?>

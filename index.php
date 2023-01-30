@@ -7,16 +7,14 @@
     <meta nampe="viewport" content="width=device-width, initial-scale=1.0">
     <!--bootstrap-->
     <link href="public/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    
     <title>CarPipe</title>
 </head>
 
 <body style="background-image: url('public/imagenes/fondo.jpg')">
-<nav class="navbar navbar-expand-lg" style="background-color: #7171FF ;">
- <!--<div class="container-fluid">-->
+<nav class="navbar navbar-expand-lg" style="background-color: #00B6BC;">
   <a class="navbar-brand" href="#">
-      <img src="-" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
-      Carpipe
+      <img src="<?php echo $URL;?>/public/imagenes/logoN.png" alt="Logo" width="80" height="30" class="d-inline-block align-text-top">
+      CarPipe
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>

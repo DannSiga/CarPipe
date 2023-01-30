@@ -2,6 +2,8 @@
 include('../app/config.php');
 
 $placa = $_GET['placa_auto'];
+$placa =strtoupper('placa_auto');
+
 $nombre_cli = $_GET['nombre'];
 $telefono = $_GET['telefono'];
 $cubibulo = $_GET['cubibulo'];

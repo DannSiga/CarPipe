@@ -19,5 +19,6 @@ session_start();
     
  }else{
     echo "Sesion NO iniciada";
+    header('Location: '.$URL.'/login');
  }
 ?>
