@@ -1,6 +1,7 @@
 <?php
 include('../app/config.php');
 
+$placa = $_GET['placa_auto'];
 $nombre_cli = $_GET['nombre'];
 $telefono = $_GET['telefono'];
 $cubibulo = $_GET['cubibulo'];
@@ -12,10 +13,10 @@ $usuario_sesion = $_GET['responsable'];
 date_default_timezone_set("America/Mexico_City");
 $fechaHora = date("Y-m_d h:i:s");
 
-$sentencia = $pdo->prepare('INSERT INTO comprobante(nombre, telefono, cubibulo, fecha_ingreso, hora_ingreso, responsable, fyh_crea, estado)
-                                             VALUES(:nombre, :telefono, :cubibulo,:fecha_ingreso, :hora_ingreso, :responsable, :fyh_crea, :estado)');
+$sentencia = $pdo->prepare('INSERT INTO comprobante(placa_auto, nombre, telefono, cubibulo, fecha_ingreso, hora_ingreso, responsable, fyh_crea, estado)
+                                             VALUES(:placa_auto, :nombre, :telefono, :cubibulo,:fecha_ingreso, :hora_ingreso, :responsable, :fyh_crea, :estado)');
 
-
+$sentencia->bindParam('placa_auto',$placa);
 $sentencia->bindParam('nombre',$nombre);
 $sentencia->bindParam('telefono',$telefono);
 $sentencia->bindParam('cubibulo',$cubibulo);
