@@ -151,16 +151,11 @@ include('layout/admin/datos_usuario_sesion.php');
                                   <div class="form-group row">
                                     <label for="staticEmail" class="col-sm-4 col-form-label">Cubículo</label>
                                     <div class="col-sm-8">
-                                    <input type="text" class="form-control" value="<?php echo $no_espas;?>" id="cubiculo<?php echo $id_map;?>">
+                                    <input type="text" class="form-control" id="cubiculo<?php echo $id_map;?>" value="<?php echo $no_espas;?>" >
                                     </div>
                                   </div>
 
-                                  <div class="form-group row">
-                                    <label for="staticEmail" class="col-sm-4 col-form-label">Observaciones:</label>
-                                    <div class="col-sm-8">
-                                      <textarea name="" id="obs" cols="" class="form-control" id="obser_placa<?php echo $id_map;?>" rows="5"></textarea>
-                                    </div>
-                                  </div>
+                         
                                 </div>
 
                                 <div class="modal-footer">
@@ -177,9 +172,8 @@ include('layout/admin/datos_usuario_sesion.php');
                                       var hora_ingreso = $('#hora_ingreso<?php echo $id_map;?>').val();
 
                                       var cubiculo = $('#cubiculo<?php echo $id_map;?>').val();
-                                      var observacion = $('#obser_placa<?php echo $id_map;?>').val();
+                                    //  var observacion = $('#observ<?php echo $id_map;?>').val();
                                       var usuario_sesion = "<?php echo $usuario_sesion;?>";
-
 
                                       if(placa == ""){
                                         alert("Debe colocar la PLACA");
@@ -191,8 +185,13 @@ include('layout/admin/datos_usuario_sesion.php');
                                         alert("-->Debe ingresar un teléfono");
                                         $('#telefono<?php echo $id_map;?>');
                                       }else{ 
-                                        var url = '\comprobantes\controller_regis_compro.php'; 
-                                        $.get(url, {placa:placa,nombre_cli:nombre_cli,telefono:telefono,fecha_ingreso:fecha_ingreso,hora_ingreso:hora_ingreso,cubiculo:cubiculo,observacion:observacion,usuario_sesion:usuario_sesion}, function(datos){
+                                        var url = 'mecanica/controller_cambiar_estado_ocupado.php'; 
+                                        $.get(url, {cubiculo:cubiculo}, function(datos){
+                                          $('#respues_compro').html(datos);
+                                        });
+
+                                        var url_1 = 'comprobantes/controller_regis_compro.php'; 
+                                        $.get(url_1, {placa:placa,nombre_cli:nombre_cli,telefono:telefono,fecha_ingreso:fecha_ingreso,hora_ingreso:hora_ingreso,cubiculo:cubiculo,usuario_sesion:usuario_sesion}, function(datos){
                                           $('#respues_compro').html(datos);
                                         });
                                       }

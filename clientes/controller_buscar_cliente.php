@@ -9,7 +9,8 @@ $id_map = $_GET['id_map'];
 
 $idCliente='';
 $nombre_cli='';
-$rfc_cliente='';
+$telefono='';
+//$obser='';
 
 $query_buscars = $pdo->prepare("SELECT * FROM clientes WHERE estado = '1' AND placa_auto = '$placa' ");
 $query_buscars->execute();
@@ -18,6 +19,7 @@ foreach($buscars as $buscar){
   $idCliente = $buscar['idCliente'];
   $nombre_cli = $buscar['nombre'];
   $telefono = $buscar['telefono'];
+  //$observ = $buscar['observ'];
 }
 if($nombre_cli == ""){
     //echo "Nuevo cliente";
@@ -30,16 +32,16 @@ if($nombre_cli == ""){
     </div>
     
     <div class="form-group row">
-        <label for="staticEmail" class="col-sm-4 col-form-label">Telefono:<samp><b style="color: red;">*</b></samp></label>
+        <label for="staticEmail" class="col-sm-4 col-form-label">Teléfono:<samp><b style="color: red;">*</b></samp></label>
         <div class="col-sm-8">
             <input type="text" class="form-control" id="telefono<?php echo $id_map;?>">
         </div>
     </div>
 <!--
     <div class="form-group row">
-        <label for="staticEmail" class="col-sm-3 col-form-label">RFC:<samp><b style="color: red;">*</b></samp></label>
-        <div class="col-sm-9">
-            <input type="text" class="form-control" id="rfc_cli?php echo $id_map;?>">
+        <label for="staticEmail" class="col-sm-4 col-form-label">Observaciones:</label>
+        <div class="col-sm-8">
+            <textarea name="" cols="" class="form-control" id="observ<?php echo $id_map;?>" rows="5"></textarea>
         </div>
     </div>
 -->
@@ -57,14 +59,14 @@ if($nombre_cli == ""){
     <div class="form-group row">
         <label for="staticEmail" class="col-sm-4 col-form-label">Telefono:</label>
         <div class="col-sm-8">
-            <input type="text" class="form-control" id="telefono<?php echo $id_map;?>" value="<?php echo $telefono?>">
+            <input type="text" class="form-control" id="telefono<?php echo $id_map;?>" value="<?php echo $telefono;?>">
         </div>
     </div>
     <!--
     <div class="form-group row">
-        <label for="staticEmail" class="col-sm-3 col-form-label">RFC:</label>
-        <div class="col-sm-9">
-            <input type="text" class="form-control" id="rfc_cli<php echo $id_map;?>" value="<php echo $rfc_cliente;?>">
+        <label for="staticEmail" class="col-sm-4 col-form-label">Observaciones:</label>
+        <div class="col-sm-8">
+            <textarea name="" cols="" class="form-control" id="obser<?php echo $id_map;?>" rows="5" value="<?php echo $obser;?>"></textarea>
         </div>
     </div>
 -->
