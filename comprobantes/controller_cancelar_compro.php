@@ -5,9 +5,8 @@ $id_ticket = $_GET['id'];
 $cubiculo = $_GET['cubiculo'];
 
 $estado_inactivo = "0";
-
-date_default_timezone_set("America/caracas");
-$fechaHora = date("Y-m-d h:i:s");
+date_default_timezone_set("America/Mexico_City");
+$fechaHora = date("Y-m_d h:i:s");
 
 $sentencia = $pdo->prepare("UPDATE comprobante SET
 estado = :estado,

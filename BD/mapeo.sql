@@ -1,8 +1,7 @@
 create table mapeo(
-    id_mp       INT (11) not null auto_increment primary ker,
+    id_mp       INT (11) not null auto_increment primary key,
     nomp        varchar(225) null,
     estado_esp  varchar(225) null,
-    obs         varchar(225)null,
 
     fyh_crea    datetime null,
     fyh_eli    datetime null,

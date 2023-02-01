@@ -2,6 +2,28 @@
 include('app/config.php');  
 include('layout/admin/datos_usuario_sesion.php');
 //echo "Sesion iniciada";
+
+//REcuperar informacion para facturar
+$query_informacions = $pdo->prepare("SELECT * FROM tb_informacion WHERE estado = '1' ");
+$query_informacions->execute();
+$informacions = $query_informacions->fetchAll(PDO::FETCH_ASSOC);
+foreach($informacions as $informacion){
+    $id_informacion = $informacion['id_inf'];
+}
+
+//Recuperar numero para facturar
+$contador_factura= 0;
+$query_facturaciones = $pdo->prepare("SELECT * FROM facturas WHERE estado = '1' ");
+$query_facturaciones->execute();
+$facturaciones = $query_facturaciones->fetchAll(PDO::FETCH_ASSOC);
+foreach($facturaciones as $faturacion){
+  $contador_factura = $contador_factura +1;
+}
+$contador_factura = $contador_factura +1;
+
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -192,6 +214,7 @@ include('layout/admin/datos_usuario_sesion.php');
                           </center>
                         </div>
                         <?php
+                        //Cambiar el estado a ocupaod
                       }if($estado_esp == "OCUPADO")
                       { ?>
                         <div class="col">
@@ -204,82 +227,111 @@ include('layout/admin/datos_usuario_sesion.php');
                             $query_datos_cliente = $pdo->prepare("SELECT * FROM comprobante WHERE cubiculo = '$no_espas' AND estado = '1' ");
                             $query_datos_cliente->execute();
                             $datos_clientes = $query_datos_cliente->fetchAll(PDO::FETCH_ASSOC);
-                            foreach($datos_clientes as $datos_cliente)
-                            {
-                              $id_ticket = $datos_cliente['id_compr'];
-                              $placa = $datos_cliente['placa_auto'];
-                              $nombre_cli = $datos_cliente['nombre'];
-                              $telefono = $datos_cliente['telefono'];
-                              $cubiculo = $datos_cliente['cubiculo'];
-                              $fecha_ingreso = $datos_cliente['fecha_ingreso'];
-                              $hora_ingreso = $datos_cliente['hora_ingreso'];
-                              $usuario_sesion = $datos_cliente['responsable'];
-                            }
-                            ?>
-                            <!-- Modal -->
-                            <div class="modal fade" id="exampleModal<?php echo $id_map;?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                              <div class="modal-dialog">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">DATOS DEL CLIENTE </h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
-                                  
-                                  <div class="modal-body">
-                                    <div class="form-group row">
-                                      <label for="staticEmail" class="col-sm-4 col-form-label">Placa:</label>
-                                        <div class="col-sm-3">
-                                          <input type="text" style="text-transform: uppercase" class="form-control" value="<?php echo $placa;?>" id="placa_buscar<?php echo $id_map;?>" disabled>
+                              foreach($datos_clientes as $datos_cliente)
+                              {
+                                $id_ticket = $datos_cliente['id_compr'];
+                                $placa_auto = $datos_cliente['placa_auto'];
+                                $nombre_cli = $datos_cliente['nombre'];
+                                $telefono = $datos_cliente['telefono'];
+                                $cubiculo = $datos_cliente['cubiculo'];
+                                $fecha_ingreso = $datos_cliente['fecha_ingreso'];
+                                $hora_ingreso = $datos_cliente['hora_ingreso'];
+                                $usuario_sesion = $datos_cliente['responsable'];
+                              }
+                              ?>
+                              <!-- Modal -->
+                              <div class="modal fade" id="exampleModal<?php echo $id_map;?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="exampleModalLabel">DATOS DEL CLIENTE </h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    
+                                    <div class="modal-body">
+                                      <div class="form-group row">
+                                        <label for="staticEmail" class="col-sm-4 col-form-label">Placa:</label>
+                                          <div class="col-sm-3">
+                                            <input type="text" style="text-transform: uppercase" class="form-control" value="<?php echo $placa_auto;?>" id="placa_buscar<?php echo $id_map;?>" disabled>
+                                          </div>
+                                      </div>
+                                      
+                                      <div class="form-group row">
+                                        <label for="staticEmail" class="col-sm-4 col-form-label">Nombre:</label>
+                                        <div class="col-sm-8">
+                                          <input type="text" class="form-control" value="<?php echo $nombre_cli;?>" id="nombre_cliente<?php echo $id_map;?>" disabled>
                                         </div>
-                                    </div>
-                                    
-                                    <div class="form-group row">
-                                      <label for="staticEmail" class="col-sm-4 col-form-label">Nombre:</label>
-                                      <div class="col-sm-8">
-                                        <input type="text" class="form-control" value="<?php echo $nombre_cli;?>" id="nombre_cliente<?php echo $id_map;?>" disabled>
+                                      </div>
+                                      
+                                      <div class="form-group row">
+                                        <label for="staticEmail" class="col-sm-4 col-form-label">Telefono:</label>
+                                        <div class="col-sm-8">
+                                          <input type="text" class="form-control" value="<?php echo $telefono;?>" id="telefono<?php echo $id_map;?>" disabled>
+                                        </div>
+                                      </div>
+                                      
+                                      <div class="form-group row">
+                                        <label for="staticEmail" class="col-sm-4 col-form-label">Fecha de Ingreso:</label>
+                                        <div class="col-sm-8">
+                                          <input type="text" class="form-control" value="<?php echo $fecha_ingreso;?>" id="fecha_ingreso<?php echo $id_map;?>" disabled>
+                                        </div>
+                                      </div>
+                                      
+                                      <div class="form-group row">
+                                        <label for="staticEmail" class="col-sm-4 col-form-label">Hora de ingreso:</label>
+                                        <div class="col-sm-8">
+                                          <input type="text" class="form-control" value="<?php echo $hora_ingreso;?>" id="hora_ingreso<?php echo $id_map;?>" disabled>
+                                        </div>
+                                      </div>
+                                      
+                                      <div class="form-group row">
+                                        <label for="staticEmail" class="col-sm-4 col-form-label">Cubículo</label>
+                                        <div class="col-sm-8">
+                                          <input type="text" class="form-control" value="<?php echo $cubiculo;?>" id="cubiculo<?php echo $id_map;?>" disabled>
+                                        </div>
                                       </div>
                                     </div>
                                     
-                                    <div class="form-group row">
-                                      <label for="staticEmail" class="col-sm-4 col-form-label">Telefono:</label>
-                                      <div class="col-sm-8">
-                                        <input type="text" class="form-control" value="<?php echo $telefono;?>" id="telefono<?php echo $id_map;?>" disabled>
-                                      </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
+                                      <a href="comprobantes/controller_cancelar_compro.php?id=<?php echo $id_ticket;?>&&cubiculo=<?php echo $cubiculo;?>"class="btn btn-danger">Cancelar</a>
+                                      <a h ref="comprobantes/reimprimir.php?id=<?php echo $id_ticket;?>" class="btn btn-primary">Imprimir</a>
+                                      <button type="button" class="btn btn-success" id="btn_facturar<?php echo $id_map;?>">Factura</button>
+                                      <?php //RECUPERAR id Cliente
+                                        $query_datos_cliente_factura = $pdo->prepare("SELECT * FROM clientes WHERE placa_auto = '$placa_auto' AND estado = '1' ");
+                                        $query_datos_cliente_factura->execute();
+                                        $datos_clientes_facturas = $query_datos_cliente_factura->fetchAll(PDO::FETCH_ASSOC);
+                                        foreach($datos_clientes_facturas as $datos_clientesfactura)
+                                        {
+                                          $id_cliente_facturacion = $datos_clientesfactura['idCliente'];
+                                        }
+                                      ?>
+
+                                      <script>
+                                        $('#btn_facturar<?php echo $id_map;?>').click(function()
+                                        {
+                                          var id_informacion = "<?php echo $id_informacion;?>";
+                                          var no_factura = "<?php echo $contador_factura;?>";
+                                          var id_cliente = "<?php echo $id_cliente_facturacion;?>";
+                                          var fecha_ingreso = "<?php echo $fecha_ingreso;?>";
+                                          var hora_ingreso =  "<?php echo $hora_ingreso;?>";
+                                          var cubiculo = "<?php echo $cubiculo;?>";
+                                          var responsable = "<?php echo $usuario_sesion;?>";
+
+                                          var url_4 = 'facturacion/controller_registrar_factura.php';
+                                          $.get(url_4,{id_informacion:id_informacion,no_factura:no_factura,id_cliente:id_cliente,fecha_ingreso:fecha_ingreso,hora_ingreso:hora_ingreso,cubiculo:cubiculo,usuario_sesion:usuario_sesion},function(datos){
+                                            $('#respuesta_factura<?php echo $id_map;?>').html(datos);
+                                          });
+                                        });
+                                      </script>
                                     </div>
-                                    
-                                    <div class="form-group row">
-                                      <label for="staticEmail" class="col-sm-4 col-form-label">Fecha de Ingreso:</label>
-                                      <div class="col-sm-8">
-                                        <input type="text" class="form-control" value="<?php echo $fecha_ingreso;?>" id="fecha_ingreso<?php echo $id_map;?>" disabled>
-                                      </div>
-                                    </div>
-                                    
-                                    <div class="form-group row">
-                                      <label for="staticEmail" class="col-sm-4 col-form-label">Hora de ingreso:</label>
-                                      <div class="col-sm-8">
-                                        <input type="text" class="form-control" value="<?php echo $hora_ingreso;?>" id="hora_ingreso<?php echo $id_map;?>" disabled>
-                                      </div>
-                                    </div>
-                                    
-                                    <div class="form-group row">
-                                      <label for="staticEmail" class="col-sm-4 col-form-label">Cubículo</label>
-                                      <div class="col-sm-8">
-                                        <input type="text" class="form-control" value="<?php echo $cubiculo;?>" id="cubiculo<?php echo $id_map;?>" disabled>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  
-                                  <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
-                                    <a href="comprobantes/controller_cancelar_compro.php?id=<?php echo $id_ticket;?>&&cubiculo=<?php echo $cubiculo;?>"class="btn btn-danger">Cancelar</a>
-                                    <a h ref="comprobantes/reimprimir.php?id=<?php echo $id_ticket;?>" class="btn btn-primary">Imprimir</a>
+                                    <div id="respuesta_factura<?php echo $id_map;?>"></div>
                                   </div>
                                 </div>
                               </div>
-                            </div>
-                            <p><?php echo $estado_esp; ?></p>
+                              <p><?php echo $estado_esp; ?></p>
                           </center>
                         </div>
                         <?php
