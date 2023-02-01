@@ -19,16 +19,16 @@ $sentencia->bindParam(':fyh_eli',$fechaHora);
 $sentencia->bindParam(':id_compr',$id_ticket);
 
 if($sentencia->execute()){
-// CAMBIO DEOCUPADO A LIBRE
+    // CAMBIO DEOCUPADO A LIBRE
     $estado_esp = "LIBRE";
     $sentencias = $pdo->prepare("UPDATE mapeo SET
     estado_esp = :estado_esp,
     fyh_act = :fyh_act
     WHERE nomp = :nomp");
-
-$sentencias->bindParam(':estado_espa',$estado_esp);
-$sentencias->bindParam(':fyh_act',$fechaHora);
-$sentencias->bindParam(':nomp',$cubiculo);
+    
+    $sentencias->bindParam(':estado_espa',$estado_esp);
+    $sentencias->bindParam(':fyh_act',$fechaHora);
+    $sentencias->bindParam(':nomp',$cubiculo);
     if($sentencias->execute()){
         echo "Se actualizo el estado del cubiculo";
         echo "se elimino el registro de la manera correcta";

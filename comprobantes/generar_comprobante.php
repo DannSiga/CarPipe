@@ -1,5 +1,4 @@
 <?php
-// Include the main TCPDF library (search for installation path).
 require_once('../app/templeates/TCPDF-main/tcpdf.php');
 include('../app/config.php');
 
@@ -14,7 +13,6 @@ foreach($informacions as $informacion){
     $direccion = $informacion['direccion'];
     $telefono = $informacion['telefono'];
 }
-
 
 //cargar la información del ticket
 $query_tickets = $pdo->prepare("SELECT * FROM comprobante WHERE estado = '1' ");
